@@ -1,0 +1,11 @@
+
+[Unit]
+Description=Checks if keyboard was disconnected and change the display
+After=network.target
+
+[Service]
+ExecStart=/bin/bash <path for display-switcher script>
+User=user
+
+[Install]
+WantedBy=multi-user.target

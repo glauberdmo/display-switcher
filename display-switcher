@@ -1,0 +1,27 @@
+
+#!/bin/bash
+prev_state="disconnected"
+while true
+do
+    if [[ $(lsusb | grep -i keyboard) ]]
+    then
+        if [[ "$prev_state" == "disconnected" ]]
+        then
+            echo "Keyboard is connected"
+            # Nothing happens when is connected
+        fi
+        prev_state="connected"
+    else
+        if [[ "$prev_state" == "connected" ]]
+        then
+            echo "Keyboard is disconnected, changing monitor"
+            # Display turns off when keyboard is disconnected
+            sleep 1;
+            xset dpms force off &&
+            sleep 5 &&
+            xset dpms force on
+        fi
+        prev_state="disconnected"
+    fi
+    sleep 5s
+done
